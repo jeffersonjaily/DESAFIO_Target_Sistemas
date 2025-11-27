@@ -1,3 +1,4 @@
+const dados = require('../data/dados.json');
 
 class Produto {
     constructor(codigo, descricao, estoqueInicial) {
@@ -7,24 +8,31 @@ class Produto {
         this.historico = [];
     }
 
+    /**
+     * @param {string} tipo - 'ENTRADA' ou 'SAIDA'
+     * @param {number} quantidade 
+     * @param {string} descricaoMovimentacao 
+     */
     movimentar(tipo, quantidade, descricaoMovimentacao) {
-        // Gera ID Único simples
-        const idUnico = Date.now() + Math.floor(Math.random() * 1000); 
+        // Gera ID Único baseado em Timestamp + Random [cite: 47]
+        const idUnico = `MOV-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
         
+        console.log(`\n--- Tentativa de ${tipo}: ${this.descricao} (${quantidade} un) ---`);
+
         if (tipo === 'SAIDA') {
             if (this.estoque < quantidade) {
-                console.error(`Erro: Estoque insuficiente para ${this.descricao}. Atual: ${this.estoque}`);
+                console.error(`❌ ERRO: Estoque insuficiente! Disponível: ${this.estoque}`);
                 return this.estoque;
             }
             this.estoque -= quantidade;
         } else if (tipo === 'ENTRADA') {
             this.estoque += quantidade;
         } else {
-            console.error("Tipo de movimentação inválido");
-            return;
+            console.error("Tipo inválido.");
+            return this.estoque;
         }
 
-        // Registro do log (Auditoria é importante em sistemas reais)
+        // Registra log histórico [cite: 48]
         this.historico.push({
             id: idUnico,
             tipo,
@@ -33,23 +41,25 @@ class Produto {
             data: new Date().toISOString()
         });
 
-        console.log(`[${tipo}] ${this.descricao} | Qtd: ${quantidade} | Novo Estoque: ${this.estoque}`);
+        console.log(`✅ Sucesso! ID: ${idUnico}`);
+        console.log(`📦 Estoque Final: ${this.estoque}`); // [cite: 49]
         return this.estoque;
     }
 }
 
-// Inicializando com os dados do JSON (Simulado)
-const estoqueDados = [
-    { "codigoProduto": 101, "descricaoProduto": "Caneta Azul", "estoque": 150 },
-    { "codigoProduto": 102, "descricaoProduto": "Caderno Universitário", "estoque": 75 }
-];
+// === EXECUÇÃO DO MVP ===
 
-// Instanciando objetos
-const produtos = estoqueDados.map(p => new Produto(p.codigoProduto, p.descricaoProduto, p.estoque));
+// Carregando o primeiro produto do JSON (Caneta Azul)
+const dadosProduto = dados.estoque[0];
+const produtoMVP = new Produto(dadosProduto.codigoProduto, dadosProduto.descricaoProduto, dadosProduto.estoque);
 
-// Testando
-const caneta = produtos.find(p => p.codigo === 101);
-if (caneta) {
-    caneta.movimentar('SAIDA', 20, 'Venda Balcão');      // Estoque vai para 130
-    caneta.movimentar('ENTRADA', 50, 'Reposição Fornecedor'); // Estoque vai para 180
-}
+console.log(`Estado Inicial: ${produtoMVP.descricao} | Qtd: ${produtoMVP.estoque}`);
+
+// Teste 1: Saída (Venda)
+produtoMVP.movimentar('SAIDA', 50, 'Venda para papelaria');
+
+// Teste 2: Entrada (Reposição)
+produtoMVP.movimentar('ENTRADA', 200, 'Chegada do fornecedor');
+
+// Teste 3: Erro (Saída maior que estoque)
+produtoMVP.movimentar('SAIDA', 500, 'Tentativa de venda grande');

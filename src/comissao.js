@@ -1,23 +1,38 @@
-const dadosVendas = require('./vendas.json'); // Supondo que o JSON [cite: 6] esteja num arquivo
+const dados = require('../data/dados.json');
 
-const TAXA_BAIXA = 0.01; // 1%
-const TAXA_ALTA = 0.05;  // 5%
+// Constantes para evitar "Magic Numbers" (Boas práticas)
+const TAXAS = {
+    FAIXA_ISENTA: { LIMITE: 100, VALOR: 0 },         // Abaixo de 100 [cite: 3]
+    FAIXA_BAIXA:  { LIMITE: 500, VALOR: 0.01 },      // Abaixo de 500 (1%) [cite: 4]
+    FAIXA_ALTA:   { VALOR: 0.05 }                    // Acima de 500 (5%) [cite: 5]
+};
 
-function calcularComissao(valor) {
-    if (valor < 100) return 0;
-    if (valor < 500) return valor * TAXA_BAIXA;
-    return valor * TAXA_ALTA;
+const formatarMoeda = (valor) => {
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
+};
+
+function calcularComissao(valorVenda) {
+    if (valorVenda < TAXAS.FAIXA_ISENTA.LIMITE) {
+        return 0;
+    } else if (valorVenda < TAXAS.FAIXA_BAIXA.LIMITE) {
+        return valorVenda * TAXAS.FAIXA_BAIXA.VALOR;
+    } else {
+        return valorVenda * TAXAS.FAIXA_ALTA.VALOR;
+    }
 }
 
-// Processamento
-const relatorio = dadosVendas.vendas.map(venda => {
-    const comissao = calcularComissao(venda.valor);
+console.log("=== RELATÓRIO DE COMISSÕES ===");
+
+const relatorio = dados.vendas.map(venda => {
+    const valorComissao = calcularComissao(venda.valor);
+    
+    
     return {
-        ...venda,
-        comissao: parseFloat(comissao.toFixed(2)),
-        valorFinal: parseFloat((venda.valor + comissao).toFixed(2))
+        Vendedor: venda.vendedor,
+        "Valor Venda": formatarMoeda(venda.valor),
+        "Comissão Calc.": formatarMoeda(valorComissao),
+        "Taxa Aplicada": valorComissao === 0 ? '0%' : (valorComissao / venda.valor * 100).toFixed(0) + '%'
     };
 });
 
-// Dica Extra: Agrupar por vendedor mostra proatividade!
 console.table(relatorio);

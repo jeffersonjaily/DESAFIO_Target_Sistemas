@@ -1,34 +1,40 @@
+const TAXA_DIARIA = 0.025; // 2.5% 
 
-function calcularDividaAtualizada(valorOriginal, dataVencimentoString) {
+function calcularJuros(valorOriginal, dataVencimentoString) {
     const hoje = new Date();
-    
-    hoje.setHours(0, 0, 0, 0);
-    
-   
     const vencimento = new Date(dataVencimentoString);
-    vencimento.setHours(0,0,0,0);
 
-    const taxaDiaria = 0.025; // 2.5%
+    // Zerar horas para calcular apenas dias inteiros de diferença
+    hoje.setHours(0, 0, 0, 0);
+    vencimento.setHours(0, 0, 0, 0);
 
-    
-    const diffTempo = hoje.getTime() - vencimento.getTime();
-    const diffDias = Math.ceil(diffTempo / (1000 * 60 * 60 * 24)); 
+    // Diferença em milissegundos convertida para dias
+    const diferencaTempo = hoje.getTime() - vencimento.getTime();
+    const diasAtraso = Math.ceil(diferencaTempo / (1000 * 3600 * 24));
 
-    if (diffDias <= 0) {
-        return `A conta não está vencida. (Dias: ${diffDias})`;
+    if (diasAtraso <= 0) {
+        return { mensagem: "Boleto não está vencido.", total: valorOriginal };
     }
 
-    const jurosTotal = valorOriginal * taxaDiaria * diffDias;
-    const totalPagar = valorOriginal + jurosTotal;
+    const valorJuros = valorOriginal * TAXA_DIARIA * diasAtraso;
+    const valorTotal = valorOriginal + valorJuros;
 
     return {
-        status: "VENCIDO",
-        diasAtraso: diffDias,
-        valorOriginal: valorOriginal,
-        jurosCalculado: parseFloat(jurosTotal.toFixed(2)),
-        totalPagar: parseFloat(totalPagar.toFixed(2))
+        original: valorOriginal,
+        vencimento: dataVencimentoString,
+        diasAtraso: diasAtraso,
+        taxaAplicada: `${(TAXA_DIARIA * 100)}% ao dia`,
+        jurosCalculado: valorJuros.toFixed(2),
+        totalPagar: valorTotal.toFixed(2)
     };
 }
 
-// Testando a função
-console.log(calcularDividaAtualizada(1000, "2024-11-17"));
+// === TESTES ===
+console.log("=== CÁLCULO DE JUROS ===");
+
+// Cenário 1: Boleto de R$ 1000,00 vencido há 10 dias (Data fictícia para teste)
+// Dica: Ajuste a data abaixo para uma data passada em relação ao dia que você rodar o código
+const dataTeste = "2023-11-01"; 
+
+const resultado = calcularJuros(1000.00, dataTeste);
+console.table(resultado);

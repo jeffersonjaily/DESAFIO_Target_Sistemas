@@ -1,0 +1,30 @@
+# Dependências do Node (Nunca envie isso para o GitHub!)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Arquivos de Sistema Operacional (Lixo de sistema)
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Arquivos de IDE (Configurações locais do seu VS Code ou IntelliJ)
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Arquivos de ambiente (Senhas e chaves de API nunca devem ser públicas)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs gerais
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
