@@ -46,6 +46,7 @@ DESAFIO_Target_Sistemas/
 ├── data/
 │   ├── vendas.json   # Massa de dados para teste (opcional)
 │   └── estoque.json  # Dados de produtos (Desafio 2)
+│ 
 └── README.md
 ````
 
