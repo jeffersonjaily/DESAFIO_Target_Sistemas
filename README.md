@@ -1,1 +1,95 @@
-# DESAFIO_Target_Sistemas
+
+# 🚀 Desafio Técnico - Desenvolvedor de Software
+
+Este repositório contém as soluções desenvolvidas para o desafio técnico da etapa de seleção. O objetivo foi aplicar lógica de programação, orientação a objetos e boas práticas de código para resolver problemas de regras de negócio reais.
+
+## 📋 Sobre o Desafio
+
+O projeto consiste na resolução de três problemas distintos, implementando as seguintes regras de negócio:
+
+### 1. Cálculo de Comissões de Vendas
+[cite_start]Processamento de dados de um time comercial para calcular comissões baseadas em faixas de valores[cite: 2]:
+* [cite_start]**Vendas abaixo de R$100,00:** Não geram comissão[cite: 3].
+* [cite_start]**Vendas abaixo de R$500,00:** Geram 1% de comissão[cite: 4].
+* [cite_start]**Vendas a partir de R$500,00:** Geram 5% de comissão[cite: 5].
+
+### 2. Gestão de Estoque
+[cite_start]Sistema para lançar movimentações de entrada e saída de mercadorias no depósito[cite: 46]. Cada movimentação possui:
+* [cite_start]Um número identificador único[cite: 47].
+* [cite_start]Uma descrição para identificar o tipo da movimentação[cite: 48].
+* [cite_start]Retorno da quantidade final do estoque do produto movimentado[cite: 49].
+
+### 3. Cálculo de Juros
+Algoritmo que calcula o valor atualizado de uma dívida baseada em valor original e data de vencimento.
+* [cite_start]**Regra:** Multa de 2,5% ao dia sobre o valor original[cite: 80].
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+* **Linguagem:** JavaScript (Node.js)
+* **Ambiente:** Node.js (v18+ recomendado)
+* **Controle de Versão:** Git
+
+## 📂 Estrutura do Projeto
+
+A organização das pastas separa a lógica da massa de dados:
+
+```text
+DESAFIO_Target_Sistemas/
+│
+├── src/
+│   ├── comissao.js   # Lógica do desafio 1 (Comissões)
+│   ├── estoque.js    # Lógica do desafio 2 (Classe Produto/Estoque)
+│   └── juros.js      # Lógica do desafio 3 (Cálculo Financeiro)
+│
+├── data/
+│   └── vendas.json   # Massa de dados para teste (opcional)
+│
+└── README.md
+````
+
+## ⚙️ Como Executar o Projeto
+
+### Pré-requisitos
+
+Certifique-se de ter o [Node.js](https://nodejs.org/) instalado em sua máquina.
+
+### Passo a passo
+
+1.  **Clone o repositório:**
+
+    ```bash
+    git clone [https://github.com/jeffersonjaily/DESAFIO_Target_Sistemas.git](https://github.com/jeffersonjaily/DESAFIO_Target_Sistemas.git)
+    cd DESAFIO_Target_Sistemas
+    ```
+
+2.  **Execute as soluções:**
+
+      * **Para ver o Relatório de Comissões:**
+
+        ```bash
+        node src/comissao.js
+        ```
+
+      * **Para testar a Gestão de Estoque:**
+
+        ```bash
+        node src/estoque.js
+        ```
+
+      * **Para calcular Juros:**
+
+        ```bash
+        node src/juros.js
+        ```
+
+## 🧠 Detalhes da Implementação
+
+  * **Clean Code:** Uso de constantes para taxas e mensagens de erro claras.
+  * **Orientação a Objetos:** Utilizada no sistema de estoque para encapsular o estado do produto e garantir a integridade dos dados (ex: impedir estoque negativo).
+  * **Tratamento de Datas:** Normalização de datas para garantir o cálculo preciso de dias corridos no módulo de juros.
+
+-----
+
+**Desenvolvido por Jefferson Jaily**

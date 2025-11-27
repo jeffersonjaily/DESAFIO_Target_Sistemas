@@ -1,0 +1,33 @@
+
+const dados = {
+  "vendas": [
+    { "vendedor": "João Silva", "valor": 1200.50 },
+    { "vendedor": "João Silva", "valor": 950.75 },
+    // ... (restante dos dados)
+    { "vendedor": "Ana Lima", "valor": 315.40 }
+  ]
+};
+
+const TAXA_BAIXA = 0.01; // 1%
+const TAXA_ALTA = 0.05;  // 5%
+
+function calcularComissao(valor) {
+    if (valor < 100) return 0;
+    if (valor < 500) return valor * TAXA_BAIXA;
+    return valor * TAXA_ALTA;
+}
+
+// Processamento
+const relatorio = dados.vendas.map(venda => {
+    const comissao = calcularComissao(venda.valor);
+    return {
+        vendedor: venda.vendedor,
+        valorVenda: venda.valor,
+        comissao: parseFloat(comissao.toFixed(2)), // Fixar 2 casas decimais
+        valorFinal: parseFloat((venda.valor + comissao).toFixed(2))
+    };
+});
+
+// Dica Extra: Agrupar por vendedor mostra proatividade!
+console.log("--- Relatório de Comissões ---");
+console.table(relatorio);
