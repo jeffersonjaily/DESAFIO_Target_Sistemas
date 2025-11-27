@@ -8,20 +8,20 @@ Este repositório contém as soluções desenvolvidas para o desafio técnico da
 O projeto consiste na resolução de três problemas distintos, implementando as seguintes regras de negócio:
 
 ### 1. Cálculo de Comissões de Vendas
-[cite_start]Processamento de dados de um time comercial para calcular comissões baseadas em faixas de valores[cite: 2]:
-* [cite_start]**Vendas abaixo de R$100,00:** Não geram comissão[cite: 3].
-* [cite_start]**Vendas abaixo de R$500,00:** Geram 1% de comissão[cite: 4].
-* [cite_start]**Vendas a partir de R$500,00:** Geram 5% de comissão[cite: 5].
+Processamento de dados de um time comercial para calcular comissões baseadas em faixas de valores:
+* **Vendas abaixo de R$100,00:** Não geram comissão.
+* **Vendas entre R$100,00 e R$499,99:** Geram 1% de comissão.
+* **Vendas a partir de R$500,00:** Geram 5% de comissão.
 
 ### 2. Gestão de Estoque
-[cite_start]Sistema para lançar movimentações de entrada e saída de mercadorias no depósito[cite: 46]. Cada movimentação possui:
-* [cite_start]Um número identificador único[cite: 47].
-* [cite_start]Uma descrição para identificar o tipo da movimentação[cite: 48].
-* [cite_start]Retorno da quantidade final do estoque do produto movimentado[cite: 49].
+Sistema para lançar movimentações de entrada e saída de mercadorias no depósito. Cada movimentação possui:
+* Um número identificador único.
+* Uma descrição para identificar o tipo da movimentação.
+* Retorno da quantidade final do estoque do produto movimentado.
 
 ### 3. Cálculo de Juros
 Algoritmo que calcula o valor atualizado de uma dívida baseada em valor original e data de vencimento.
-* [cite_start]**Regra:** Multa de 2,5% ao dia sobre o valor original[cite: 80].
+* **Regra:** Multa de 2,5% ao dia sobre o valor original.
 
 ---
 
