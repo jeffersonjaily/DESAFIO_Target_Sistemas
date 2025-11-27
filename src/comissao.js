@@ -1,4 +1,4 @@
-const dados = require('../data/dados.json');
+const dados = require('../data/vendas.json');
 
 // Constantes para evitar "Magic Numbers" (Boas práticas)
 const TAXAS = {

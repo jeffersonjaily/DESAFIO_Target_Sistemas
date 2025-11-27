@@ -44,8 +44,8 @@ DESAFIO_Target_Sistemas/
 │   └── juros.js      # Lógica do desafio 3 (Cálculo Financeiro)
 │
 ├── data/
-│   └── vendas.json   # Massa de dados para teste (opcional)
-│
+│   ├── vendas.json   # Massa de dados para teste (opcional)
+│   └── estoque.json  # Dados de produtos (Desafio 2)
 └── README.md
 ````
 
